@@ -1,9 +1,27 @@
+using GoktugMvcProject.Models;  // Model s�n�flar�n burada olacak
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using GoktugMvcProject.Areas.Identity.Data;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
+
+//appsettings.json i�inde ekledi�im veritaban� ba�lant�s�n� program.cs'te ba�lat�yor. GetConnectionString metodu ile buraya o db ismini yaz�nca.
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDefaultIdentity<MvcProjectUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<LoginLogoutRegisterDBContext>();
+
+
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -17,6 +35,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
@@ -25,3 +44,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
