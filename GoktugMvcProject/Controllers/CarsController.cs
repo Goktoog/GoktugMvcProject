@@ -9,87 +9,87 @@ using GoktugMvcProject.Models;
 
 namespace GoktugMvcProject.Controllers
 {
-    public class KullaniciController : Controller
+    public class CarsController : Controller
     {
         private readonly AppDbContext _context;
 
-        public KullaniciController(AppDbContext context)
+        public CarsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Kullanici
+        // GET: Cars
         public async Task<IActionResult> Index()
         {
-              return _context.Kullanicilar != null ? 
-                          View(await _context.Kullanicilar.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.Kullanicilar'  is null.");
+              return _context.Cars != null ? 
+                          View(await _context.Cars.ToListAsync()) :
+                          Problem("Entity set 'AppDbContext.Cars'  is null.");
         }
 
-        // GET: Kullanici/Details/5
+        // GET: Cars/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Kullanicilar == null)
+            if (id == null || _context.Cars == null)
             {
                 return NotFound();
             }
 
-            var kullanici = await _context.Kullanicilar
+            var car = await _context.Cars
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (kullanici == null)
+            if (car == null)
             {
                 return NotFound();
             }
 
-            return View(kullanici);
+            return View(car);
         }
 
-        // GET: Kullanici/Create
+        // GET: Cars/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Kullanici/Create
+        // POST: Cars/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Ad,Soyad,Email")] Kullanici kullanici)
+        public async Task<IActionResult> Create([Bind("Id,Marka,Model,Fiyat")] Car car)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(kullanici);
+                _context.Add(car);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(kullanici);
+            return View(car);
         }
 
-        // GET: Kullanici/Edit/5
+        // GET: Cars/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Kullanicilar == null)
+            if (id == null || _context.Cars == null)
             {
                 return NotFound();
             }
 
-            var kullanici = await _context.Kullanicilar.FindAsync(id);
-            if (kullanici == null)
+            var car = await _context.Cars.FindAsync(id);
+            if (car == null)
             {
                 return NotFound();
             }
-            return View(kullanici);
+            return View(car);
         }
 
-        // POST: Kullanici/Edit/5
+        // POST: Cars/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Ad,Soyad,Email")] Kullanici kullanici)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Marka,Model,Fiyat")] Car car)
         {
-            if (id != kullanici.Id)
+            if (id != car.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace GoktugMvcProject.Controllers
             {
                 try
                 {
-                    _context.Update(kullanici);
+                    _context.Update(car);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!KullaniciExists(kullanici.Id))
+                    if (!CarExists(car.Id))
                     {
                         return NotFound();
                     }
@@ -114,49 +114,49 @@ namespace GoktugMvcProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(kullanici);
+            return View(car);
         }
 
-        // GET: Kullanici/Delete/5
+        // GET: Cars/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Kullanicilar == null)
+            if (id == null || _context.Cars == null)
             {
                 return NotFound();
             }
 
-            var kullanici = await _context.Kullanicilar
+            var car = await _context.Cars
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (kullanici == null)
+            if (car == null)
             {
                 return NotFound();
             }
 
-            return View(kullanici);
+            return View(car);
         }
 
-        // POST: Kullanici/Delete/5
+        // POST: Cars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Kullanicilar == null)
+            if (_context.Cars == null)
             {
-                return Problem("Entity set 'AppDbContext.Kullanicilar'  is null.");
+                return Problem("Entity set 'AppDbContext.Cars'  is null.");
             }
-            var kullanici = await _context.Kullanicilar.FindAsync(id);
-            if (kullanici != null)
+            var car = await _context.Cars.FindAsync(id);
+            if (car != null)
             {
-                _context.Kullanicilar.Remove(kullanici);
+                _context.Cars.Remove(car);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool KullaniciExists(int id)
+        private bool CarExists(int id)
         {
-          return (_context.Kullanicilar?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Cars?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

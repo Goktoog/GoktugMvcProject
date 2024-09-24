@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;  // Identity için gerekli
 namespace GoktugMvcProject.Models
 {
-    public class AppDbContext : DbContext //Buraya Dbcontext sınıfından miras alıyorum.
+    public class AppDbContext : IdentityDbContext 
+        //Buraya Dbcontext sınıfından miras alıyorum.
         //inherit etmek OOP olarak geçer 
         //encapsulation
         //interface
@@ -11,7 +12,7 @@ namespace GoktugMvcProject.Models
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Kullanici> Kullanicilar { get; set; }
+        public DbSet<Car> Cars { get; set; }
         public DbSet<Urun> Urunler { get; set; }
         public DbSet<Siparis> Siparisler { get; set; }
 

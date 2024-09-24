@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GoktugMvcProject.Models.Kullanici>
+﻿@model IEnumerable<GoktugMvcProject.Models.Car>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,13 +14,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Ad)
+                @Html.DisplayNameFor(model => model.Marka)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Soyad)
+                @Html.DisplayNameFor(model => model.Model)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Fiyat)
             </th>
             <th></th>
         </tr>
@@ -29,14 +29,14 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Ad)
+                @Html.DisplayFor(modelItem => item.Marka)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Soyad)
+                @Html.DisplayFor(modelItem => item.Model)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
+                @String.Format("{0:N2}", item.Fiyat) TL
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

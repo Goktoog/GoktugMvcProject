@@ -1,19 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GoktugMvcProject.Models
 {
-    public class Kullanici
+    public class Car
     {
         
         public int Id { get; set; } //Birincil anahtar(ID) burayı belirtmezsen migration işkemi başarısız oluyor.
 
         [StringLength(50)] // nvarchar(50)
-        public string Ad { get; set; }
+        public string Marka { get; set; }
 
         [StringLength(50)] // nvarchar(50)
-        public string Soyad { get; set; }
+        public string Model { get; set; }
 
-        [StringLength(100)] // nvarchar(100)
-        public string Email { get; set; }
+        [Column(TypeName = "decimal(18, 3)")]
+        public decimal Fiyat { get; set; }
     }
 }
